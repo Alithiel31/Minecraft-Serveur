@@ -1,0 +1,33 @@
+services:
+  mc-vanilla:
+    image: itzg/minecraft-server:latest
+    container_name: mc-vanilla
+    environment:
+      EULA: "TRUE"
+      TYPE: "VANILLA"
+      VERSION: "LATEST"
+      SEED: "${MC_SEED}"
+      MEMORY: "1024M"
+      DIFFICULTY: "normal"
+      MAX_PLAYERS: "3"
+      VIEW_DISTANCE: "8"
+    volumes:
+      - /mnt/storage/minecraft/vanilla:/data
+    restart: unless-stopped
+    mem_limit: 1.5g
+    stdin_open: true
+    tty: true
+    ports:
+      - "25565:25565"
+
+  playit:
+    image: ghcr.io/playit-cloud/playit-agent:1.0
+    container_name: playit-mc
+    network_mode: "service:mc-vanilla"
+    restart: unless-stopped
+    environment:
+      - SECRET_KEY=${PLAYIT_SECRET_KEY}
+    volumes:
+      - ./resolv-playit.conf:/etc/resolv.conf:ro
+    depends_on:
+      - mc-vanilla
