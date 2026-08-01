@@ -14,6 +14,7 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 - Renommage de `.env exemple` → `.env.exemple` (espace dans le nom de fichier corrigé, cohérence avec le README)
 - Renommage de `Chagelog.md` → `Changelog.md` (faute de frappe)
+- Correction des erreurs `markdownlint` (blocs de code sans langage, formatage) et `yamllint` (retour à la ligne final, en-tête de document) relevées par le CI ; ajout de `.markdownlint-cli2.jsonc` et `.yamllint.yml` pour reproduire ces checks en local
 
 ### À faire
 
