@@ -5,22 +5,26 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [Unreleased]
 
+### À faire
+
+- Réactiver `machine-ingestion` avec un `mem_limit` propre pour éviter toute nouvelle contention mémoire avec `mc-vanilla`
+- Confirmer/activer `cgroup_memory` sur l'hôte pour que les limites Docker (`mem_limit`) soient réellement appliquées
+- Envisager de réactiver la whitelist si le tunnel public reste actif sans supervision
+
+## [0.4.0] - 2026-08-01
+
 ### Added
 
 - Fichier `LICENSE` (MIT)
 - CI GitHub Actions (`.github/workflows/ci.yml`) : validation `docker compose config`, lint YAML/Markdown, scan de secrets (gitleaks)
+- Badge de statut CI, section « Stack & compétences » dans le README
+- Script `backup.sh` (sauvegarde du monde avec rotation)
 
 ### Fixed
 
 - Renommage de `.env exemple` → `.env.exemple` (espace dans le nom de fichier corrigé, cohérence avec le README)
 - Renommage de `Chagelog.md` → `Changelog.md` (faute de frappe)
 - Correction des erreurs `markdownlint` (blocs de code sans langage, formatage) et `yamllint` (retour à la ligne final, en-tête de document) relevées par le CI ; ajout de `.markdownlint-cli2.jsonc` et `.yamllint.yml` pour reproduire ces checks en local
-
-### À faire
-
-- Réactiver `machine-ingestion` avec un `mem_limit` propre pour éviter toute nouvelle contention mémoire avec `mc-vanilla`
-- Confirmer/activer `cgroup_memory` sur l'hôte pour que les limites Docker (`mem_limit`) soient réellement appliquées
-- Envisager de réactiver la whitelist si le tunnel public reste actif sans supervision
 
 ## [0.3.0]
 

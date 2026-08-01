@@ -1,6 +1,18 @@
 # Serveur Minecraft Java Vanilla — Docker
 
+[![CI](https://github.com/Alithiel31/Minecraft-Serveur/actions/workflows/ci.yml/badge.svg)](https://github.com/Alithiel31/Minecraft-Serveur/actions/workflows/ci.yml)
+
 Déploiement d'un serveur Minecraft Java vanilla via Docker Compose, avec un tunnel [playit.gg](https://playit.gg) pour l'accès public, sur un hôte distant géré via un Docker context.
+
+## Stack & compétences
+
+Ce projet couvre, de bout en bout :
+
+- **Conteneurisation** : Docker Compose, gestion de `network_mode: service:`, limites mémoire (`mem_limit`), volumes persistants
+- **CI/CD** : GitHub Actions (validation `docker compose config`, lint YAML/Markdown, scan de secrets avec gitleaks)
+- **Sécurité opérationnelle** : externalisation des secrets (`.env`), `.gitignore`, choix whitelist/online-mode documentés
+- **Diagnostic système** : analyse de crash JVM lié à la contention mémoire (`free -h`, `docker stats`), résolution DNS cassée sous namespace réseau partagé — voir [`Troubleshooting.md`](./Troubleshooting.md)
+- **Documentation** : changelog versionné ([Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)), procédure de déploiement et de rollback
 
 ## Prérequis
 
@@ -111,8 +123,17 @@ docker compose -f minecraft-vanilla.yml up -d
 
 ## Sauvegarde du monde
 
+Le script [`backup.sh`](./backup.sh) archive le monde et applique une rotation (7 sauvegardes conservées par défaut) :
+
 ```bash
-tar -czf backup-$(date +%Y%m%d).tar.gz -C /chemin/vers/stockage/minecraft vanilla
+chmod +x backup.sh
+./backup.sh /chemin/vers/stockage/minecraft ./backups 7
+```
+
+Pour l'automatiser, ajouter une entrée cron sur l'hôte (exemple : sauvegarde quotidienne à 4h) :
+
+```cron
+0 4 * * * /chemin/vers/backup.sh /chemin/vers/stockage/minecraft /chemin/vers/backups 7
 ```
 
 ## Sécurité
