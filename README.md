@@ -10,10 +10,10 @@ Déploiement d'un serveur Minecraft Java vanilla via Docker Compose, avec un tun
 
 ## Installation
 
-1. Copier `.env.example` vers `.env` et renseigner les vraies valeurs :
+1. Copier `.env.exemple` vers `.env` et renseigner les vraies valeurs :
 
 ```bash
-cp .env.example .env
+cp .env.exemple .env
 ```
 
 Éditer `.env` :
@@ -114,5 +114,9 @@ tar -czf backup-$(date +%Y%m%d).tar.gz -C /chemin/vers/stockage/minecraft vanill
 
 ## Sécurité
 
-- `.env` contient des secrets et n'est **jamais** committé (voir `.gitignore`) — seul `.env.example` doit être versionné.
+- `.env` contient des secrets et n'est **jamais** committé (voir `.gitignore`) — seul `.env.exemple` doit être versionné.
 - Le serveur écoutant sans whitelist, envisager de l'activer si le tunnel public reste ouvert longtemps sans supervision active.
+
+## Licence
+
+Ce projet est sous licence [MIT](./LICENSE).

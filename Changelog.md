@@ -5,6 +5,14 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Fichier `LICENSE` (MIT)
+- CI GitHub Actions (`.github/workflows/ci.yml`) : validation `docker compose config`, lint YAML/Markdown, scan de secrets (gitleaks)
+
+### Fixed
+- Renommage de `.env exemple` → `.env.exemple` (espace dans le nom de fichier corrigé, cohérence avec le README)
+- Renommage de `Chagelog.md` → `Changelog.md` (faute de frappe)
+
 ### À faire
 - Réactiver `machine-ingestion` avec un `mem_limit` propre pour éviter toute nouvelle contention mémoire avec `mc-vanilla`
 - Confirmer/activer `cgroup_memory` sur l'hôte pour que les limites Docker (`mem_limit`) soient réellement appliquées

@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-compose:
+    name: Validate docker-compose
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare dummy .env for syntax check
+        run: |
+          echo "PLAYIT_SECRET_KEY=dummy" > .env
+          echo "MC_SEED=dummy" >> .env
+
+      - name: docker compose config
+        run: docker compose -f minecraft-vanilla.yml config
+
+  lint-yaml:
+    name: Lint YAML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: yamllint
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          file_or_dir: minecraft-vanilla.yml
+          config_data: |
+            extends: default
+            rules:
+              line-length: disable
+              truthy:
+                allowed-values: ['true', 'false', 'TRUE', 'FALSE']
+
+  lint-markdown:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: "**/*.md"
+
+  secret-scan:
+    name: Scan for secrets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
