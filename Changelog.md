@@ -10,6 +10,7 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 - Réactiver l'autre service concerné par l'incident de contention mémoire, avec un `mem_limit` propre pour éviter toute nouvelle contention avec `mc-vanilla`
 - Confirmer/activer `cgroup_memory` sur l'hôte pour que les limites Docker (`mem_limit`) soient réellement appliquées
 - Envisager de réactiver la whitelist si le tunnel public reste actif sans supervision
+- Ajouter une alerte (via OpenClaw + bot Telegram) en cas de crash ou d'anomalie sur le serveur, pour une supervision active sans surveillance manuelle des logs
 
 ## [0.4.0] - 2026-08-01
 
