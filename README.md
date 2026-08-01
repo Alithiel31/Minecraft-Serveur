@@ -17,17 +17,19 @@ cp .env.exemple .env
 ```
 
 Éditer `.env` :
+
 - `PLAYIT_SECRET_KEY` : le secret généré par le wizard Docker de playit.gg (section "Agents" du dashboard)
 - `MC_SEED` : la seed Minecraft souhaitée
 
-2. Créer le dossier de données du monde (à adapter selon ton point de montage) :
+1. Créer le dossier de données du monde (à adapter selon ton point de montage) :
 
 ```bash
 mkdir -p /chemin/vers/stockage/minecraft/vanilla
 ```
+
 Puis mettre à jour le chemin dans `minecraft-vanilla.yml`, section `volumes` du service `mc-vanilla`.
 
-3. Créer le fichier `resolv-playit.conf` dans le même dossier que le compose :
+1. Créer le fichier `resolv-playit.conf` dans le même dossier que le compose :
 
 ```bash
 cat <<RESOLVEOF > resolv-playit.conf
@@ -90,7 +92,8 @@ docker attach mc-vanilla
 ```
 
 Dans la console Minecraft :
-```
+
+```text
 op <pseudo>                  # donner les droits admin
 whitelist add <pseudo>
 whitelist list

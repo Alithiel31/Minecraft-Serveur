@@ -1,3 +1,4 @@
+---
 services:
   mc-vanilla:
     image: itzg/minecraft-server:latest

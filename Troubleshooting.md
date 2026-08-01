@@ -10,7 +10,7 @@ Ce document retrace les deux principaux incidents rencontrés lors du déploieme
 
 Après plusieurs minutes de fonctionnement normal, le serveur s'est arrêté brutalement :
 
-```
+```text
 [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 188049ms or 3760 ticks behind
 [Server Watchdog/ERROR]: A single server tick took 73.23 seconds (should be max 0.05)
 [Server Watchdog/ERROR]: Considering it to be crashed, server will forcibly shutdown.
@@ -35,7 +35,7 @@ docker stats --no-stream
 
 Le container identifié tournait un processus d'ingestion de données en continu (connexion WebSocket permanente à un firehose externe, écritures DB via Prisma). Ses propres logs montraient déjà des erreurs indépendantes :
 
-```
+```text
 Timed out fetching a new connection from the connection pool. connection_limit: 9, timeout: 10
 Unique constraint failed on the fields: (`uri`)
 ```
@@ -56,7 +56,7 @@ Ces erreurs (pool de connexions Prisma sous-dimensionné, race condition sur un 
 
 Le tunnel public (playit.gg) semblait configuré correctement côté dashboard (agent connecté, tunnel créé, adresse générée), mais la connexion échouait systématiquement en timeout. Les logs de l'agent playit tournaient en boucle avec :
 
-```
+```text
 ERROR playit_agent_core::agent_control::address_selector: failed to send initial ping error=Os { code: 101, kind: NetworkUnreachable, ... }
 ERROR playit_api_client::http_client: API call failed ... source: ... ConnectError("dns error", ... "failed to lookup address information: Try again")
 WARN playit_agent_core::agent_control::maintained_control: control session expired; reconnecting reason=SessionNotSetup
@@ -96,7 +96,7 @@ playit:
     - ./resolv-playit.conf:/etc/resolv.conf:ro
 ```
 
-```
+```text
 # resolv-playit.conf
 nameserver 1.1.1.1
 nameserver 8.8.8.8
