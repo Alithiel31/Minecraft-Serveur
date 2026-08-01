@@ -35,7 +35,7 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 ### Changed
 
 - Externalisation du secret `SECRET_KEY` (playit) et de `SEED` (Minecraft) dans un fichier `.env`, non versionné
-- Ajout de `.env.example` et `.gitignore` pour un partage sûr du projet
+- Ajout de `.env.exemple` et `.gitignore` pour un partage sûr du projet
 
 ## [0.2.0]
 

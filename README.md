@@ -5,6 +5,23 @@
 
 Déploiement d'un serveur Minecraft Java vanilla via Docker Compose, avec un tunnel [playit.gg](https://playit.gg) pour l'accès public, sur un hôte distant géré via un Docker context.
 
+## Sommaire
+
+- [Stack & compétences](#stack--compétences)
+- [Architecture](#architecture)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Déploiement](#déploiement)
+- [Vérifications post-lancement](#vérifications-post-lancement)
+- [Accès des joueurs](#accès-des-joueurs)
+- [Whitelist](#whitelist)
+- [Commandes utiles](#commandes-utiles)
+- [Changer la seed](#changer-la-seed)
+- [Sauvegarde du monde](#sauvegarde-du-monde)
+- [Sécurité](#sécurité)
+- [Contribuer](#contribuer)
+- [Licence](#licence)
+
 ## Stack & compétences
 
 Ce projet couvre, de bout en bout :
