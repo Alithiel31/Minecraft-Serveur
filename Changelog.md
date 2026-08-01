@@ -7,7 +7,7 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ### À faire
 
-- Réactiver `machine-ingestion` avec un `mem_limit` propre pour éviter toute nouvelle contention mémoire avec `mc-vanilla`
+- Réactiver l'autre service concerné par l'incident de contention mémoire, avec un `mem_limit` propre pour éviter toute nouvelle contention avec `mc-vanilla`
 - Confirmer/activer `cgroup_memory` sur l'hôte pour que les limites Docker (`mem_limit`) soient réellement appliquées
 - Envisager de réactiver la whitelist si le tunnel public reste actif sans supervision
 

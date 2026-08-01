@@ -1,0 +1,37 @@
+name: Smoke test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  smoke-test:
+    name: Démarrage réel du serveur
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare dummy .env
+        run: |
+          echo "PLAYIT_SECRET_KEY=dummy" > .env
+          echo "MC_SEED=dummy" >> .env
+
+      - name: Start mc-vanilla only
+        run: docker compose -f minecraft-vanilla.yml up -d mc-vanilla
+
+      - name: Wait for "Done" in logs (timeout 5 min)
+        run: |
+          timeout 300 sh -c 'until docker logs mc-vanilla 2>&1 | grep -q "Done ("; do sleep 5; done'
+
+      - name: Check port is listening
+        run: docker exec mc-vanilla bash -c 'echo > /dev/tcp/localhost/25565'
+
+      - name: Dump logs on failure
+        if: failure()
+        run: docker logs mc-vanilla
+
+      - name: Teardown
+        if: always()
+        run: docker compose -f minecraft-vanilla.yml down -v

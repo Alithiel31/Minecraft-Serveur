@@ -1,6 +1,7 @@
 # Serveur Minecraft Java Vanilla — Docker
 
 [![CI](https://github.com/Alithiel31/Minecraft-Serveur/actions/workflows/ci.yml/badge.svg)](https://github.com/Alithiel31/Minecraft-Serveur/actions/workflows/ci.yml)
+[![Smoke test](https://github.com/Alithiel31/Minecraft-Serveur/actions/workflows/smoke-test.yml/badge.svg)](https://github.com/Alithiel31/Minecraft-Serveur/actions/workflows/smoke-test.yml)
 
 Déploiement d'un serveur Minecraft Java vanilla via Docker Compose, avec un tunnel [playit.gg](https://playit.gg) pour l'accès public, sur un hôte distant géré via un Docker context.
 
@@ -13,6 +14,25 @@ Ce projet couvre, de bout en bout :
 - **Sécurité opérationnelle** : externalisation des secrets (`.env`), `.gitignore`, choix whitelist/online-mode documentés
 - **Diagnostic système** : analyse de crash JVM lié à la contention mémoire (`free -h`, `docker stats`), résolution DNS cassée sous namespace réseau partagé — voir [`Troubleshooting.md`](./Troubleshooting.md)
 - **Documentation** : changelog versionné ([Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)), procédure de déploiement et de rollback
+
+## Architecture
+
+```mermaid
+flowchart LR
+    subgraph Host["Hôte distant (Docker context)"]
+        MC["mc-vanilla<br/>itzg/minecraft-server<br/>:25565"]
+        PL["playit-mc<br/>agent playit.gg<br/>network_mode: service:mc-vanilla"]
+        VOL[("Volume persistant<br/>/data (monde)")]
+        PL -. "partage la pile réseau de" .-> MC
+        MC --- VOL
+    end
+
+    LAN["Joueur (réseau privé/VPN/LAN)"] -- "IP interne :25565" --> MC
+    WAN["Joueur (Internet)"] -- "adresse publique" --> TUNNEL["Tunnel playit.gg"]
+    TUNNEL --> PL
+```
+
+Le container `playit` n'a pas d'endpoint réseau propre (`network_mode: service:mc-vanilla`) : il partage entièrement la pile réseau de `mc-vanilla`, ce qui impose un DNS statique (`resolv-playit.conf`) — voir [`Troubleshooting.md`](./Troubleshooting.md#2-le-tunnel-playitgg-reste-injoignable-dns).
 
 ## Prérequis
 
@@ -140,6 +160,10 @@ Pour l'automatiser, ajouter une entrée cron sur l'hôte (exemple : sauvegarde q
 
 - `.env` contient des secrets et n'est **jamais** committé (voir `.gitignore`) — seul `.env.exemple` doit être versionné.
 - Le serveur écoutant sans whitelist, envisager de l'activer si le tunnel public reste ouvert longtemps sans supervision active.
+
+## Contribuer
+
+Voir [`CONTRIBUTING.md`](./CONTRIBUTING.md) pour l'environnement de développement, la reproduction des checks CI en local et le format des PR.
 
 ## Licence
 

@@ -33,14 +33,7 @@ docker stats --no-stream
 # largement au-dessus de tous les autres services (souvent < 100 MiB chacun)
 ```
 
-Le container identifié tournait un processus d'ingestion de données en continu (connexion WebSocket permanente à un firehose externe, écritures DB via Prisma). Ses propres logs montraient déjà des erreurs indépendantes :
-
-```text
-Timed out fetching a new connection from the connection pool. connection_limit: 9, timeout: 10
-Unique constraint failed on the fields: (`uri`)
-```
-
-Ces erreurs (pool de connexions Prisma sous-dimensionné, race condition sur un upsert) indiquaient que ce service tournait déjà à la limite de ses ressources — cohérent avec une consommation mémoire anormalement élevée et croissante.
+Le container identifié faisait tourner un autre service applicatif (sans rapport avec Minecraft) présentant déjà, dans ses propres logs, des erreurs indépendantes révélant une saturation de ses ressources : timeouts de pool de connexions à sa base de données, échecs d'écriture par contrainte d'unicité. Ces erreurs indiquaient que ce service tournait déjà à la limite de ses ressources — cohérent avec une consommation mémoire anormalement élevée et croissante.
 
 ### Conclusion / correction
 
