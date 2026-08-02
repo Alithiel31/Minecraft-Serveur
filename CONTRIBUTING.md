@@ -5,7 +5,7 @@ Merci de l'intérêt porté à ce projet. Ce dépôt déploie un serveur Minecra
 ## Avant de commencer
 
 - Ouvrir une issue pour discuter du changement envisagé, sauf pour les corrections triviales (typo, lien cassé).
-- Vérifier que le changement n'est pas déjà couvert par les items « À faire » du [`Changelog.md`](./Changelog.md).
+- Vérifier que le changement n'est pas déjà couvert par les items « À faire » du [`CHANGELOG.md`](./CHANGELOG.md).
 
 ## Environnement de développement
 
@@ -33,7 +33,7 @@ markdownlint-cli2 "**/*.md"
 
 1. Créer une branche depuis `main` (`git checkout -b fix/mon-changement`).
 2. Committer avec un message clair, idéalement au format `type: description` (`fix:`, `docs:`, `chore:`...).
-3. Mettre à jour [`Changelog.md`](./Changelog.md) dans la section `[Unreleased]` si le changement est notable pour un utilisateur.
+3. Mettre à jour [`CHANGELOG.md`](./CHANGELOG.md) dans la section `[Unreleased]` si le changement est notable pour un utilisateur.
 4. Vérifier que les workflows CI passent (`validate-compose`, `lint-yaml`, `lint-markdown`, `secret-scan`, `smoke-test`).
 5. Ouvrir la PR vers `main`.
 
