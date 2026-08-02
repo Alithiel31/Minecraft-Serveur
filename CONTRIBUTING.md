@@ -1,46 +1,48 @@
-# Contribuer
+# Contributing
 
-Merci de l'intérêt porté à ce projet. Ce dépôt déploie un serveur Minecraft Java vanilla via Docker Compose ; toute contribution qui simplifie le déploiement, corrige un bug, ou améliore la documentation est la bienvenue.
+🇫🇷 [Version française](./CONTRIBUTING.fr.md)
 
-## Avant de commencer
+Thanks for your interest in this project. This repository deploys a vanilla Minecraft Java server through Docker Compose; any contribution that simplifies the deployment, fixes a bug, or improves the documentation is welcome.
 
-- Ouvrir une issue pour discuter du changement envisagé, sauf pour les corrections triviales (typo, lien cassé).
-- Vérifier que le changement n'est pas déjà couvert par les items « À faire » du [`CHANGELOG.md`](./CHANGELOG.md).
+## Before you start
 
-## Environnement de développement
+- Open an issue to discuss the change you have in mind, except for trivial fixes (typo, broken link).
+- Check that the change is not already covered by the "To do" items in [`CHANGELOG.md`](./CHANGELOG.md).
+
+## Development environment
 
 ```bash
 git clone git@github.com:Alithiel31/Minecraft-Serveur.git
 cd Minecraft-Serveur
-cp .env.exemple .env
-# renseigner PLAYIT_SECRET_KEY et MC_SEED
+cp .env.example .env
+# fill in PLAYIT_SECRET_KEY and MC_SEED
 ```
 
-Les vérifications de la CI peuvent être reproduites en local :
+The CI checks can be reproduced locally:
 
 ```bash
-# Validation de la syntaxe du compose
+# Compose syntax validation
 docker compose -f minecraft-vanilla.yml config
 
-# Lint YAML (config identique à celle du CI, voir .yamllint.yml)
+# YAML lint (same config as the CI, see .yamllint.yml)
 yamllint -c .yamllint.yml minecraft-vanilla.yml
 
-# Lint Markdown (config identique à celle du CI, voir .markdownlint-cli2.jsonc)
+# Markdown lint (same config as the CI, see .markdownlint-cli2.jsonc)
 markdownlint-cli2 "**/*.md"
 ```
 
-## Faire une Pull Request
+## Opening a Pull Request
 
-1. Créer une branche depuis `main` (`git checkout -b fix/mon-changement`).
-2. Committer avec un message clair, idéalement au format `type: description` (`fix:`, `docs:`, `chore:`...).
-3. Mettre à jour [`CHANGELOG.md`](./CHANGELOG.md) dans la section `[Unreleased]` si le changement est notable pour un utilisateur.
-4. Vérifier que les workflows CI passent (`validate-compose`, `lint-yaml`, `lint-markdown`, `secret-scan`, `smoke-test`).
-5. Ouvrir la PR vers `main`.
+1. Create a branch from `main` (`git checkout -b fix/my-change`).
+2. Commit with a clear message, ideally in the `type: description` format (`fix:`, `docs:`, `chore:`...).
+3. Update [`CHANGELOG.md`](./CHANGELOG.md) in the `[Unreleased]` section if the change is notable for a user.
+4. Check that the CI workflows pass (`validate-compose`, `lint-yaml`, `lint-markdown`, `secret-scan`, `smoke-test`).
+5. Open the PR against `main`.
 
-## Signaler un problème
+## Reporting a problem
 
-Merci d'inclure : la sortie de `docker logs mc-vanilla` (et `docker logs playit-mc` si le problème concerne le tunnel), la version de Docker/Docker Compose, et l'architecture de l'hôte (ARM64, x86...). Voir [`Troubleshooting.md`](./Troubleshooting.md) avant d'ouvrir une issue — les deux incidents les plus fréquents (crash mémoire, DNS playit) y sont déjà documentés.
+Please include: the output of `docker logs mc-vanilla` (and `docker logs playit-mc` if the problem concerns the tunnel), the Docker/Docker Compose version, and the host architecture (ARM64, x86...). Check [`Troubleshooting.en.md`](./Troubleshooting.en.md) before opening an issue — the two most frequent incidents (memory crash, playit DNS) are already documented there.
 
 ## Secrets
 
-Ne jamais committer `.env` ni aucune valeur réelle de `PLAYIT_SECRET_KEY` ou `MC_SEED`. Le CI inclut un scan `gitleaks` sur chaque PR.
+Never commit `.env` or any real value of `PLAYIT_SECRET_KEY` or `MC_SEED`. The CI includes a `gitleaks` scan on every PR.

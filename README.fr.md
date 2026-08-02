@@ -64,10 +64,10 @@ Le container `playit` n'a pas d'endpoint réseau propre (`network_mode: service:
 
 ## Installation
 
-1. Copier `.env.exemple` vers `.env` et renseigner les vraies valeurs :
+1. Copier `.env.example` vers `.env` et renseigner les vraies valeurs :
 
 ```bash
-cp .env.exemple .env
+cp .env.example .env
 ```
 
 Éditer `.env` :
@@ -180,12 +180,12 @@ Pour l'automatiser, ajouter une entrée cron sur l'hôte (exemple : sauvegarde q
 
 ## Sécurité
 
-- `.env` contient des secrets et n'est **jamais** committé (voir `.gitignore`) — seul `.env.exemple` doit être versionné.
+- `.env` contient des secrets et n'est **jamais** committé (voir `.gitignore`) — seul `.env.example` doit être versionné.
 - Le serveur écoutant sans whitelist, envisager de l'activer si le tunnel public reste ouvert longtemps sans supervision active.
 
 ## Contribuer
 
-Voir [`CONTRIBUTING.md`](./CONTRIBUTING.md) pour l'environnement de développement, la reproduction des checks CI en local et le format des PR.
+Voir [`CONTRIBUTING.fr.md`](./CONTRIBUTING.fr.md) pour l'environnement de développement, la reproduction des checks CI en local et le format des PR.
 
 ## Licence
 
