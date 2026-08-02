@@ -41,7 +41,9 @@ markdownlint-cli2 "**/*.md"
 
 ## Reporting a problem
 
-Please include: the output of `docker logs mc-vanilla` (and `docker logs playit-mc` if the problem concerns the tunnel), the Docker/Docker Compose version, and the host architecture (ARM64, x86...). Check [`Troubleshooting.en.md`](./Troubleshooting.en.md) before opening an issue — the two most frequent incidents (memory crash, playit DNS) are already documented there.
+Opening an issue gives you a form that asks for exactly what is needed: the output of `docker logs mc-vanilla` (and `docker logs playit-mc` if the problem concerns the tunnel), the Docker/Docker Compose version, and the host architecture (ARM64, x86...). Check [`Troubleshooting.en.md`](./Troubleshooting.en.md) before opening an issue — the two most frequent incidents (memory crash, playit DNS) are already documented there.
+
+Never paste a real `PLAYIT_SECRET_KEY` or `MC_SEED` in an issue; redact them from any log or config you copy in.
 
 ## Secrets
 
