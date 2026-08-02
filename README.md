@@ -34,7 +34,7 @@ This project covers, end to end:
 - **Containerization**: Docker Compose, `network_mode: service:` handling, memory limits (`mem_limit`), persistent volumes
 - **CI/CD**: GitHub Actions (`docker compose config` validation, YAML/Markdown linting, secret scanning with gitleaks)
 - **Operational security**: secrets kept outside the repository (`.env`), `.gitignore`, documented whitelist/online-mode choices
-- **System troubleshooting**: analysis of a JVM crash caused by memory contention (`free -h`, `docker stats`), broken DNS resolution under a shared network namespace — see [`Troubleshooting.md`](./Troubleshooting.md) (in French)
+- **System troubleshooting**: analysis of a JVM crash caused by memory contention (`free -h`, `docker stats`), broken DNS resolution under a shared network namespace — see [`Troubleshooting.en.md`](./Troubleshooting.en.md)
 - **Documentation**: versioned changelog ([Keep a Changelog](https://keepachangelog.com/en/1.0.0/)), deployment and rollback procedure
 
 ## Architecture
@@ -54,7 +54,7 @@ flowchart LR
     TUNNEL --> PL
 ```
 
-The `playit` container has no network endpoint of its own (`network_mode: service:mc-vanilla`): it fully shares the network stack of `mc-vanilla`, which requires a static DNS (`resolv-playit.conf`) — see [`Troubleshooting.md`](./Troubleshooting.md#2-le-tunnel-playitgg-reste-injoignable-dns).
+The `playit` container has no network endpoint of its own (`network_mode: service:mc-vanilla`): it fully shares the network stack of `mc-vanilla`, which requires a static DNS (`resolv-playit.conf`) — see [`Troubleshooting.en.md`](./Troubleshooting.en.md#2-the-playitgg-tunnel-stays-unreachable-dns).
 
 ## Requirements
 
