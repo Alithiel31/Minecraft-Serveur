@@ -12,6 +12,14 @@ Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `CONTRIBUTING.fr.md`: French version of the contributing guide, cross-linked with the English one
 - GitHub issue forms (`.github/ISSUE_TEMPLATE/`): a bug report asking for the logs, versions and host architecture the contributing guide already required, a change/improvement request, and links to the troubleshooting notes
 
+- `resolv-playit.conf.example`, so the file required by the compose bind mount can be copied instead of typed by hand
+
+### Fixed
+
+- Installation steps in both READMEs rendered as "1. / 1. / 1." instead of 1, 2, 3: the code blocks between the steps split the list into three, and are now indented inside their step
+- `.gitignore` did not cover `backups/` (the default output of `backup.sh`) nor `resolv-playit.conf`, so running a backup from the repository left world archives untracked in the working tree
+- Requirements sections now warn that Docker silently discards `mem_limit` when cgroup memory accounting is off at the kernel level — the root cause of the documented crash, previously mentioned only in the troubleshooting notes
+
 ### Changed
 
 - `Changelog.md` renamed to `CHANGELOG.md` and translated to English
