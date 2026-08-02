@@ -1,5 +1,7 @@
 # Troubleshooting
 
+🇬🇧 [English version](./Troubleshooting.en.md)
+
 Ce document retrace les deux principaux incidents rencontrés lors du déploiement, avec la démarche de diagnostic suivie — pas seulement la solution finale.
 
 ---

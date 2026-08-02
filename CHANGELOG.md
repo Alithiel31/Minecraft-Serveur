@@ -8,6 +8,7 @@ Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - English `README.md` as the main entry point of the repository, with a faithful French translation in `README.fr.md` and cross-links between the two
+- `Troubleshooting.en.md`: English translation of `Troubleshooting.md`, cross-linked with the French version; the English README now points to it
 
 ### Changed
 
