@@ -1,1 +1,8 @@
+# Secrets — see .env.example
 .env
+
+# Generated from resolv-playit.conf.example, host-specific
+resolv-playit.conf
+
+# Default output directory of backup.sh
+backups/

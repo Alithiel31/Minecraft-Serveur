@@ -61,38 +61,38 @@ Le container `playit` n'a pas d'endpoint réseau propre (`network_mode: service:
 - Docker + Docker Compose installés sur l'hôte cible
 - Un compte [playit.gg](https://playit.gg) (email vérifié) avec un agent Docker créé et un tunnel Minecraft Java configuré
 - Un dossier de stockage persistant pour le monde, hors de la partition système si l'espace y est limité
+- Sur Raspberry Pi OS, et sur tout hôte où la comptabilité mémoire des cgroups est désactivée au niveau kernel, Docker **ignore silencieusement** `mem_limit`. Ajouter `cgroup_memory=1 cgroup_enable=memory` dans `/boot/firmware/cmdline.txt` (`/boot/cmdline.txt` sur les versions plus anciennes) et redémarrer, sinon la limite mémoire du compose n'a aucun effet — c'est ce qui a causé le crash décrit dans [`Troubleshooting.md`](./Troubleshooting.md#1-crash-du-serveur-minecraft-watchdog-tick-bloqué).
 
 ## Installation
 
 1. Copier `.env.example` vers `.env` et renseigner les vraies valeurs :
 
-```bash
-cp .env.example .env
-```
+   ```bash
+   cp .env.example .env
+   ```
 
-Éditer `.env` :
+   Éditer `.env` :
 
-- `PLAYIT_SECRET_KEY` : le secret généré par le wizard Docker de playit.gg (section "Agents" du dashboard)
-- `MC_SEED` : la seed Minecraft souhaitée
+   - `PLAYIT_SECRET_KEY` : le secret généré par le wizard Docker de playit.gg (section "Agents" du dashboard)
+   - `MC_SEED` : la seed Minecraft souhaitée
 
-1. Créer le dossier de données du monde (à adapter selon ton point de montage) :
+2. Créer le dossier de données du monde (à adapter selon ton point de montage) :
 
-```bash
-mkdir -p /chemin/vers/stockage/minecraft/vanilla
-```
+   ```bash
+   mkdir -p /chemin/vers/stockage/minecraft/vanilla
+   ```
 
-Puis mettre à jour le chemin dans `minecraft-vanilla.yml`, section `volumes` du service `mc-vanilla`.
+   Puis mettre à jour le chemin dans `minecraft-vanilla.yml`, section `volumes` du service `mc-vanilla`.
 
-1. Créer le fichier `resolv-playit.conf` dans le même dossier que le compose :
+3. Copier `resolv-playit.conf.example` vers `resolv-playit.conf`, dans le même dossier que le compose :
 
-```bash
-cat <<RESOLVEOF > resolv-playit.conf
-nameserver 1.1.1.1
-nameserver 8.8.8.8
-RESOLVEOF
-```
+   ```bash
+   cp resolv-playit.conf.example resolv-playit.conf
+   ```
 
-> Ce fichier est nécessaire car le container `playit` partage le network namespace de `mc-vanilla` (`network_mode: service:mc-vanilla`) et ne peut pas utiliser le resolver DNS interne de Docker dans ce mode — on lui monte donc un `/etc/resolv.conf` statique pointant vers des DNS publics.
+   > Ce fichier est nécessaire car le container `playit` partage le network namespace de `mc-vanilla` (`network_mode: service:mc-vanilla`) et ne peut pas utiliser le resolver DNS interne de Docker dans ce mode — on lui monte donc un `/etc/resolv.conf` statique pointant vers des DNS publics.
+   >
+   > Le créer **avant** le premier `docker compose up` : Docker n'échoue pas sur une source de bind mount manquante, il crée un répertoire à la place, et le container `playit` démarre alors sans resolver utilisable.
 
 ## Déploiement
 
