@@ -64,10 +64,10 @@ The `playit` container has no network endpoint of its own (`network_mode: servic
 
 ## Installation
 
-1. Copy `.env.exemple` to `.env` and fill in the real values:
+1. Copy `.env.example` to `.env` and fill in the real values:
 
 ```bash
-cp .env.exemple .env
+cp .env.example .env
 ```
 
 Edit `.env`:
@@ -180,7 +180,7 @@ To automate it, add a cron entry on the host (example: daily backup at 4am):
 
 ## Security
 
-- `.env` contains secrets and is **never** committed (see `.gitignore`) — only `.env.exemple` should be versioned.
+- `.env` contains secrets and is **never** committed (see `.gitignore`) — only `.env.example` should be versioned.
 - Since the server listens without a whitelist, consider enabling it if the public tunnel stays open for a long time without active supervision.
 
 ## Contributing

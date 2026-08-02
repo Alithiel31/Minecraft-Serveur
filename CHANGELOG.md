@@ -9,10 +9,15 @@ Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - English `README.md` as the main entry point of the repository, with a faithful French translation in `README.fr.md` and cross-links between the two
 - `Troubleshooting.en.md`: English translation of `Troubleshooting.md`, cross-linked with the French version; the English README now points to it
+- `CONTRIBUTING.fr.md`: French version of the contributing guide, cross-linked with the English one
 
 ### Changed
 
 - `Changelog.md` renamed to `CHANGELOG.md` and translated to English
+- `CONTRIBUTING.md` translated to English, in line with the rest of the default documentation
+- `backup.sh`: comments, usage block and output messages translated to English (no behaviour change)
+- Smoke test job renamed from "Démarrage réel du serveur" to "Real server startup" — the check name shown on pull requests changes accordingly
+- `.env.exemple` renamed to `.env.example` (English spelling); update your local copy command accordingly
 
 ### To do
 

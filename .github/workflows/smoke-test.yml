@@ -8,7 +8,7 @@ on:
 
 jobs:
   smoke-test:
-    name: Démarrage réel du serveur
+    name: Real server startup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
