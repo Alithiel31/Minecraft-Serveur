@@ -10,6 +10,7 @@ Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - English `README.md` as the main entry point of the repository, with a faithful French translation in `README.fr.md` and cross-links between the two
 - `Troubleshooting.en.md`: English translation of `Troubleshooting.md`, cross-linked with the French version; the English README now points to it
 - `CONTRIBUTING.fr.md`: French version of the contributing guide, cross-linked with the English one
+- GitHub issue forms (`.github/ISSUE_TEMPLATE/`): a bug report asking for the logs, versions and host architecture the contributing guide already required, a change/improvement request, and links to the troubleshooting notes
 
 ### Changed
 

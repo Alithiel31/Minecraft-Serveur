@@ -1,0 +1,104 @@
+name: Bug report
+description: Something is broken — the server won't start, the tunnel is unreachable, the backup fails...
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this.
+
+        Two incidents are already documented in
+        [`Troubleshooting.en.md`](https://github.com/Alithiel31/Minecraft-Serveur/blob/main/Troubleshooting.en.md)
+        ([version française](https://github.com/Alithiel31/Minecraft-Serveur/blob/main/Troubleshooting.md)):
+        a server crash caused by memory contention, and the playit tunnel staying
+        unreachable because of DNS. Worth a look before filling this in.
+
+        ⚠️ **Never paste your real `PLAYIT_SECRET_KEY` or `MC_SEED`.** Redact them from
+        any log or config you copy here.
+
+        Issues in English or French are both fine.
+
+  - type: checkboxes
+    attributes:
+      label: Before reporting
+      options:
+        - label: I checked the troubleshooting notes and my problem is not one of the two documented incidents
+          required: true
+        - label: I searched the existing issues
+          required: true
+        - label: I removed any secret from the logs and config below
+          required: true
+
+  - type: textarea
+    attributes:
+      label: What happens
+      description: What you observed, and what you expected instead.
+      placeholder: |
+        The playit-mc container restarts every 30 seconds. I expected it to stay up
+        and expose the tunnel address.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: What you ran, in order, starting from a known state.
+      placeholder: |
+        1. cp .env.example .env, filled in both values
+        2. docker compose -f minecraft-vanilla.yml up -d
+        3. docker logs -f playit-mc
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Logs of mc-vanilla
+      description: Output of `docker logs mc-vanilla` — the last 50 lines are usually enough.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Logs of playit-mc
+      description: Output of `docker logs playit-mc`. Required only if the problem concerns the tunnel.
+      render: text
+
+  - type: input
+    attributes:
+      label: Docker and Docker Compose versions
+      description: Output of `docker version --format '{{.Server.Version}}'` and `docker compose version --short`.
+      placeholder: "Docker 27.3.1, Compose 2.29.7"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: Host architecture
+      options:
+        - ARM64 (aarch64)
+        - x86_64 (amd64)
+        - Other / not sure
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Host hardware and OS
+      description: The machine running the containers.
+      placeholder: "Raspberry Pi 5 8 GB, Raspberry Pi OS Bookworm 64-bit"
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Changes to the compose file
+      description: >-
+        Anything you changed in `minecraft-vanilla.yml` compared to the version in this
+        repository — memory, volumes, versions, added services. Say "none" if unchanged.
+      render: yaml
+
+  - type: textarea
+    attributes:
+      label: Anything else
+      description: Other containers on the host, available RAM (`free -h`), whatever you think is relevant.
