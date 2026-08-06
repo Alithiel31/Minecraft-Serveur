@@ -24,6 +24,7 @@ Testé sur un Raspberry Pi 5 (ARM64), mais rien n'est spécifique au Pi — n'im
 - [Changer la seed](#changer-la-seed)
 - [Sauvegarde du monde](#sauvegarde-du-monde)
 - [Sécurité](#sécurité)
+- [Données personnelles](#données-personnelles)
 - [Contribuer](#contribuer)
 - [Licence](#licence)
 
@@ -182,6 +183,26 @@ Pour l'automatiser, ajouter une entrée cron sur l'hôte (exemple : sauvegarde q
 
 - `.env` contient des secrets et n'est **jamais** committé (voir `.gitignore`) — seul `.env.example` doit être versionné.
 - Le serveur écoutant sans whitelist, envisager de l'activer si le tunnel public reste ouvert longtemps sans supervision active.
+
+## Données personnelles
+
+Faire tourner cette stack revient à stocker des données sur les joueurs qui se connectent. Bon à savoir avant d'ouvrir le tunnel à des inconnus.
+
+Sur le volume persistant (`/data` dans le container) :
+
+- **Pseudos et UUID Mojang/Microsoft** — `usercache.json`, `ops.json`, `whitelist.json`, `banned-players.json`, et un fichier par joueur sous `world/playerdata/`
+- **Adresses IP** — écrites dans `logs/latest.log` à chaque connexion, et conservées durablement dans `banned-ips.json` en cas de bannissement d'IP
+- **Messages de chat** — journalisés dans `logs/` par défaut
+
+Deux éléments élargissent cette empreinte :
+
+- **playit.gg est sur le chemin de toute connexion publique** (`minecraft-vanilla.yml`, service `playit`) : le fournisseur du tunnel voit les adresses IP des joueurs qui se connectent. Ce sont leurs propres conditions, publiées sur [playit.gg](https://playit.gg), qui s'appliquent sur ce segment.
+- **Les sauvegardes recopient l'ensemble.** [`backup.sh`](./backup.sh) archive tout le dossier du monde, et sa rotation ne plafonne que le *nombre* d'archives conservées (7 par défaut) — il n'y a pas de rétention par durée, donc la plus ancienne copie survit aussi longtemps que le serveur reste calme.
+
+Ce que ça implique dépend de qui joue :
+
+- **Petit serveur privé, entre gens que tu connais** — cela relève de l'exemption « activité strictement personnelle ou domestique » du RGPD (art. 2.2.c) ; aucune information formelle n'est requise.
+- **Serveur ouvert au public** — l'exemption ne tient plus, et il faut informer les joueurs de ce qui est stocké et pour combien de temps. Activer la whitelist (voir [Whitelist](#whitelist) et [Sécurité](#sécurité)) est le moyen le plus simple de rester dans le cas privé.
 
 ## Contribuer
 

@@ -24,6 +24,7 @@ Tested on a Raspberry Pi 5 (ARM64), but nothing here is Pi-specific — any Dock
 - [Changing the seed](#changing-the-seed)
 - [World backup](#world-backup)
 - [Security](#security)
+- [Personal data](#personal-data)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -182,6 +183,26 @@ To automate it, add a cron entry on the host (example: daily backup at 4am):
 
 - `.env` contains secrets and is **never** committed (see `.gitignore`) — only `.env.example` should be versioned.
 - Since the server listens without a whitelist, consider enabling it if the public tunnel stays open for a long time without active supervision.
+
+## Personal data
+
+Running this stack means storing data about the players who connect. Worth knowing before opening the tunnel to people you don't know.
+
+On the persistent volume (`/data` inside the container):
+
+- **Usernames and Mojang/Microsoft UUIDs** — `usercache.json`, `ops.json`, `whitelist.json`, `banned-players.json`, and one file per player under `world/playerdata/`
+- **IP addresses** — written to `logs/latest.log` on every connection, and kept persistently in `banned-ips.json` for any IP ban
+- **Chat messages** — logged to `logs/` by default
+
+Two things extend that footprint:
+
+- **playit.gg is in the path of every public connection** (`minecraft-vanilla.yml`, `playit` service): the tunnel provider sees the connecting players' IP addresses. Their own privacy terms, published on [playit.gg](https://playit.gg), apply to that leg.
+- **Backups copy all of it.** [`backup.sh`](./backup.sh) archives the whole world folder, and its rotation only caps the *number* of archives kept (7 by default) — there is no time-based retention, so the oldest copy lives as long as the server stays quiet.
+
+What that implies depends on who plays:
+
+- **Small private server, people you know** — this falls under the "purely personal or household activity" exemption of the GDPR (art. 2(2)(c)); no formal privacy notice is required.
+- **Server open to the public** — the exemption no longer holds, and players should be told what is stored and for how long. Enabling the whitelist (see [Whitelist](#whitelist) and [Security](#security)) is the simplest way to stay in the private case.
 
 ## Contributing
 

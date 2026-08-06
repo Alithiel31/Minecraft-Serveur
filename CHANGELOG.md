@@ -5,6 +5,10 @@ Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- "Personal data" section in both READMEs: what the stack writes about connecting players (usernames/UUIDs, IP addresses in the logs and ban lists, chat), playit.gg seeing the public connections, backups copying all of it with no time-based retention, and when the GDPR household exemption stops covering an operator
+
 ### To do
 
 - Re-enable the other service involved in the memory contention incident, with a proper `mem_limit` to avoid any new contention with `mc-vanilla`
